@@ -48,6 +48,25 @@ public class CuentaBancariaService implements ICuentaService {
     }
 
     @Override
+    public void eliminar(int numeroCuenta) 
+    {
+        CuentaBancaria cb = buscarPorNumero(numeroCuenta);
+        
+        try {
+            if( cb != null && cb.getEstado().equalsIgnoreCase("Activo"))
+            {
+                cb.setEstado("Inactivo");
+            }
+                    
+        } catch (Exception e) 
+        {
+            
+        }
+    }
+    
+    
+
+    @Override
     public void depositar(int numeroCuenta, double monto) {
         CuentaBancaria c = buscarPorNumero(numeroCuenta);
         c.depositar(monto);
