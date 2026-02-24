@@ -8,6 +8,7 @@ package model;
  *
  * @author jaiderclavijo
  */
-public class IRendimiento {
+public interface IRendimiento {
+    void calcularRendimiento();
     
 }

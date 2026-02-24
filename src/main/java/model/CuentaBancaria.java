@@ -4,10 +4,13 @@
  */
 package model;
 
+import lombok.Data;
+
 /**
  *
  * @author jaiderclavijo
  */
+@Data
 public abstract class CuentaBancaria {
     
     private int numeroCuenta;

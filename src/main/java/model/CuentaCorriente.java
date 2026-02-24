@@ -4,10 +4,13 @@
  */
 package model;
 
+import lombok.Data;
+
 /**
  *
  * @author jaiderclavijo
  */
+@Data
 public class CuentaCorriente extends CuentaBancaria {
     private double limiteSobreGiro;
     private double comision; // comisión fija mensual
