@@ -9,6 +9,6 @@ package model;
  * @author jaiderclavijo
  */
 public interface IRendimiento {
-    void calcularRendimiento();
+    double calcularRendimiento();
     
 }

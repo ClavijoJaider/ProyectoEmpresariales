@@ -13,8 +13,8 @@ import lombok.Data;
 @Data
 public class CuentaCorriente extends CuentaBancaria {
     private double limiteSobreGiro;
-    private double comision; // comisión fija mensual
-    private TarjetaCredito tarjetaCredito; // asociación con D
+    private double comision; 
+    private TarjetaCredito tarjetaCredito; 
 
     public CuentaCorriente(int numeroCuenta, String titular, double saldo, String estado,
                            double limiteSobreGiro, double comision, TarjetaCredito tarjetaCredito) {
@@ -45,3 +45,4 @@ public class CuentaCorriente extends CuentaBancaria {
         }
         setSaldo(saldoActual - monto); // puede quedar negativo
     }
+}
