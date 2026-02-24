@@ -8,12 +8,12 @@ package gui;
  *
  * @author sdlgv
  */
-public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
+public class GUIBuscarCuentaCorriente extends javax.swing.JFrame {
 
     /**
-     * Creates new form GUIBuscarCuentaAhorros
+     * Creates new form GUIBuscarCuentaCorriente
      */
-    public GUIBuscarCuentaAhorros() {
+    public GUIBuscarCuentaCorriente() {
         initComponents();
     }
 
@@ -34,7 +34,8 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Buscar Cuenta Ahorros");
+        setTitle("Buscar Cuenta Corriente");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
@@ -46,7 +47,7 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Num. Cuenta", "Titular", "Saldo", "Tasa Interes", "Monto Min."
+                "Num. Cuenta", "Titular", "Saldo", "Limt. SobreGiro", "Comision"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -56,9 +57,9 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
+                .addContainerGap(61, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+                .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +101,7 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtInputNumCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,20 +124,20 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIBuscarCuentaAhorros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIBuscarCuentaCorriente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIBuscarCuentaAhorros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIBuscarCuentaCorriente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIBuscarCuentaAhorros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIBuscarCuentaCorriente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIBuscarCuentaAhorros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIBuscarCuentaCorriente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUIBuscarCuentaAhorros().setVisible(true);
+                new GUIBuscarCuentaCorriente().setVisible(true);
             }
         });
     }

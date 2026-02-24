@@ -4,6 +4,8 @@
 
 package com.mycompany.proyecto;
 
+import gui.GUIPrincipal;
+
 /**
  *
  * @author jaiderclavijo
@@ -11,6 +13,7 @@ package com.mycompany.proyecto;
 public class Proyecto {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        GUIPrincipal gui = new GUIPrincipal();
+        gui.setVisible(true);
     }
 }
