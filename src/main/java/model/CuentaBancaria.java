@@ -10,4 +10,10 @@ package model;
  */
 public class CuentaBancaria {
     
+    private int numeroCuenta;
+    private String titular;
+    private double saldo;
+    private String estado;
+    
+    
 }
