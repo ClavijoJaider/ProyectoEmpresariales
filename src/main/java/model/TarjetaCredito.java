@@ -8,6 +8,18 @@ package model;
  *
  * @author jaiderclavijo
  */
+@Data
 public class TarjetaCredito {
+    
+    private double cupo;
+    private double cuotaManejo;
+    private String numeroTarjeta;
+    
+    public TarjetaCredito(double cupo, double cuotaManejo, String numeroTarjeta)
+    {
+        this.cupo = cupo;
+        this.cuotaManejo = cuotaManejo;
+        this.numeroTarjeta = numeroTarjeta;
+    }
     
 }
