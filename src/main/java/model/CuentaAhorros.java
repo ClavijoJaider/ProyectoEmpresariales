@@ -8,6 +8,7 @@ package model;
  *
  * @author jaiderclavijo
  */
+@Data
 public class CuentaAhorros extends CuentaBancaria implements IRendimiento {
     private double tasaInteres;       
     private double montoMinApertura;   
@@ -22,7 +23,9 @@ public class CuentaAhorros extends CuentaBancaria implements IRendimiento {
             throw new IllegalArgumentException("Saldo inicial menor al monto mínimo de apertura");
         }
     }
+    
 
+    
     
     @Override
     public double calcularCostoMensual() {
