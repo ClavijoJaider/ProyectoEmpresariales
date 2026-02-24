@@ -15,6 +15,7 @@ public class GUIListarCorriente extends javax.swing.JFrame {
      */
     public GUIListarCorriente() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**

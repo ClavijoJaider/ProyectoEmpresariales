@@ -71,13 +71,13 @@
                       <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtTasaInteres" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtSaldo" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtTitular" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtNumCuenta" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="txtNumCuenta" alignment="0" pref="75" max="32767" attributes="0"/>
+                      <Component id="txtTitular" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtSaldo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtTasaInteres" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="193" max="32767" attributes="0"/>
+                  <EmptySpace pref="203" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -131,9 +131,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumCuenta">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Num cuenta"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNumCuentaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTitular">
         </Component>

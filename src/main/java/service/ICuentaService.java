@@ -15,8 +15,10 @@ public interface ICuentaService {
     void crear(CuentaBancaria cuenta);
     CuentaBancaria buscarPorNumero(int numeroCuenta);
     List<CuentaBancaria> listar();
+    void eliminar(int numeroCuenta);
     void depositar(int numeroCuenta, double monto);
     void retirar(int numeroCuenta, double monto);
+    
 
   
     double calcularCostoMensual(int numeroCuenta);

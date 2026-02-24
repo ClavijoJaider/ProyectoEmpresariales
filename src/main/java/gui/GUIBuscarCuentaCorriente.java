@@ -15,6 +15,7 @@ public class GUIBuscarCuentaCorriente extends javax.swing.JFrame {
      */
     public GUIBuscarCuentaCorriente() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
@@ -41,9 +42,6 @@ public class GUIBuscarCuentaCorriente extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
                 {null, null, null, null, null}
             },
             new String [] {
@@ -86,7 +84,7 @@ public class GUIBuscarCuentaCorriente extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtInputNumCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtInputNumCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBuscar)))
                 .addContainerGap())

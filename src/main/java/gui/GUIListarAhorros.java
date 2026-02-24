@@ -15,6 +15,7 @@ public class GUIListarAhorros extends javax.swing.JFrame {
      */
     public GUIListarAhorros() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
