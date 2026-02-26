@@ -251,7 +251,8 @@ public class GUIPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miDepositarActionPerformed
 
     private void miRendimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRendimientoActionPerformed
-        // TODO add your handling code here:
+        GUIRendimiento c = new GUIRendimiento();
+        c.setVisible(true);
     }//GEN-LAST:event_miRendimientoActionPerformed
 
     /**
