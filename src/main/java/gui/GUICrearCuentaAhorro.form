@@ -72,12 +72,12 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtNumCuenta" alignment="0" pref="75" max="32767" attributes="0"/>
-                      <Component id="txtTitular" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtTitular" alignment="0" pref="272" max="32767" attributes="0"/>
                       <Component id="txtSaldo" alignment="0" max="32767" attributes="0"/>
                       <Component id="txtTasaInteres" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtNumCuenta" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="203" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

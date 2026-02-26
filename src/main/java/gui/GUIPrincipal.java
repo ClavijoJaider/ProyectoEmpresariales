@@ -4,6 +4,8 @@
  */
 package gui;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author sdlgv
@@ -31,19 +33,25 @@ public class GUIPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         miCrearAhorro = new javax.swing.JMenuItem();
         miBuscarAhorro = new javax.swing.JMenuItem();
         miEliminarAhorro = new javax.swing.JMenuItem();
         miListarAhorro = new javax.swing.JMenuItem();
+        miRendimiento = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         miCrearCorriente = new javax.swing.JMenuItem();
         miBuscarCorriente = new javax.swing.JMenuItem();
         miEliminarCorriente = new javax.swing.JMenuItem();
         miListarCorriente = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        miRetirar = new javax.swing.JMenuItem();
+        miDepositar = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -53,7 +61,12 @@ public class GUIPrincipal extends javax.swing.JFrame {
 
         jMenuItem4.setText("jMenuItem4");
 
+        jMenuItem5.setText("jMenuItem5");
+
+        jMenuItem6.setText("jMenuItem6");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GoyBank By Bancolombia");
 
         jMenu4.setText("Cuenta Ahorros");
 
@@ -88,6 +101,14 @@ public class GUIPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu4.add(miListarAhorro);
+
+        miRendimiento.setText("Calcular Rendimiento");
+        miRendimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRendimientoActionPerformed(evt);
+            }
+        });
+        jMenu4.add(miRendimiento);
 
         jMenuBar1.add(jMenu4);
 
@@ -127,11 +148,37 @@ public class GUIPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        jMenu1.setText("Depositar");
+        jMenu1.setText("Operaciones");
+
+        miRetirar.setText("Retirar");
+        miRetirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRetirarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miRetirar);
+
+        miDepositar.setText("Depositar");
+        miDepositar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDepositarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miDepositar);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Retirar");
-        jMenuBar1.add(jMenu2);
+        jMenu6.setText("Ayuda");
+
+        jMenuItem1.setText("Acerca de...");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu6);
 
         setJMenuBar(jMenuBar1);
 
@@ -189,6 +236,24 @@ public class GUIPrincipal extends javax.swing.JFrame {
         c.setVisible(true);
     }//GEN-LAST:event_miListarCorrienteActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       JOptionPane.showMessageDialog(this, "Desarrollado por Carlos Gil, Jaider Clavijo, Santiago Lozano!");
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void miRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRetirarActionPerformed
+        GUIRetirar c = new GUIRetirar();
+        c.setVisible(true);
+    }//GEN-LAST:event_miRetirarActionPerformed
+
+    private void miDepositarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDepositarActionPerformed
+        GUIDepositar c = new GUIDepositar();
+        c.setVisible(true);
+    }//GEN-LAST:event_miDepositarActionPerformed
+
+    private void miRendimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRendimientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miRendimientoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,21 +291,27 @@ public class GUIPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem miBuscarAhorro;
     private javax.swing.JMenuItem miBuscarCorriente;
     private javax.swing.JMenuItem miCrearAhorro;
     private javax.swing.JMenuItem miCrearCorriente;
+    private javax.swing.JMenuItem miDepositar;
     private javax.swing.JMenuItem miEliminarAhorro;
     private javax.swing.JMenuItem miEliminarCorriente;
     private javax.swing.JMenuItem miListarAhorro;
     private javax.swing.JMenuItem miListarCorriente;
+    private javax.swing.JMenuItem miRendimiento;
+    private javax.swing.JMenuItem miRetirar;
     // End of variables declaration//GEN-END:variables
 }

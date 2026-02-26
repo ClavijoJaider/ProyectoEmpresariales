@@ -70,11 +70,11 @@ public class GUICrearCuentaAhorro extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNumCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                    .addComponent(txtTitular)
+                    .addComponent(txtTitular, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                     .addComponent(txtSaldo)
-                    .addComponent(txtTasaInteres))
-                .addContainerGap(203, Short.MAX_VALUE))
+                    .addComponent(txtTasaInteres)
+                    .addComponent(txtNumCuenta))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
