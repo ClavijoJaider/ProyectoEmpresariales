@@ -15,7 +15,7 @@ import service.ICuentaService;
 public class GUICrearCuentaCorriente extends javax.swing.JFrame {
 
     private ICuentaService service;
-    
+
     public GUICrearCuentaCorriente() {
         initComponents();
         setLocationRelativeTo(this);
@@ -151,7 +151,7 @@ public class GUICrearCuentaCorriente extends javax.swing.JFrame {
             double sal = Double.parseDouble(txtSaldo.getText());
             double comi = Double.parseDouble(txtComision.getText());
             double sobre = Double.parseDouble(txtLimtSobreGiro.getText());
-        
+
             service.crearCuentaCorriente(num, titu, sal, comi, sobre);
             JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente");
         } catch (Exception e) {

@@ -12,12 +12,13 @@ import lombok.Data;
  */
 @Data
 public class CuentaAhorros extends CuentaBancaria implements IRendimiento {
-    private double tasaInteres;       
-    private double montoMinApertura;   
+
+    private double tasaInteres;
+    private double montoMinApertura;
 
     public CuentaAhorros(int numeroCuenta, String titular, double saldo,
-                         double tasaInteres) {
-        super(numeroCuenta, titular, saldo, "activo");
+            double tasaInteres) {
+        super(numeroCuenta, titular, saldo, "Activo");
         this.tasaInteres = tasaInteres;
         montoMinApertura = 200000.00;
 
@@ -25,17 +26,13 @@ public class CuentaAhorros extends CuentaBancaria implements IRendimiento {
             throw new IllegalArgumentException("Saldo inicial menor al monto mínimo de apertura");
         }
     }
-    
 
-    
-    
     @Override
     public double calcularCostoMensual() {
-        
+
         return 0.0;
     }
 
-   
     @Override
     public double calcularRendimiento() {
         return getSaldo() * tasaInteres;

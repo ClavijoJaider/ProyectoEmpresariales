@@ -4,6 +4,11 @@
  */
 package gui;
 
+import model.CuentaAhorros;
+import model.CuentaBancaria;
+import service.CuentaBancariaService;
+import service.ICuentaService;
+
 /**
  *
  * @author sdlgv
@@ -13,9 +18,12 @@ public class GUIEliminarCuentaAhorros extends javax.swing.JFrame {
     /**
      * Creates new form GUIEliminarCuentaAhorros
      */
+    private ICuentaService service;
+
     public GUIEliminarCuentaAhorros() {
         initComponents();
         setLocationRelativeTo(this);
+        service = new CuentaBancariaService();
     }
 
     /**
@@ -37,7 +45,7 @@ public class GUIEliminarCuentaAhorros extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtMontoMinimoApertura = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtRendimiento = new javax.swing.JTextField();
+        txtTasaInteres = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtInputNumCuenta = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
@@ -79,17 +87,27 @@ public class GUIEliminarCuentaAhorros extends javax.swing.JFrame {
         txtMontoMinimoApertura.setEditable(false);
         jPanel18.add(txtMontoMinimoApertura);
 
-        jLabel6.setText("Rendimiento:");
+        jLabel6.setText("Tasa Interes:");
         jPanel18.add(jLabel6);
 
-        txtRendimiento.setEditable(false);
-        jPanel18.add(txtRendimiento);
+        txtTasaInteres.setEditable(false);
+        jPanel18.add(txtTasaInteres);
 
         jLabel13.setText("Ingrese numero de cuenta");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,6 +147,72 @@ public class GUIEliminarCuentaAhorros extends javax.swing.JFrame {
     private void txtNumCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumCuentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumCuentaActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            if (txtInputNumCuenta.getText().isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un número");
+                return;
+            }
+
+            int numBuscar = Integer.parseInt(txtInputNumCuenta.getText());
+
+            CuentaBancaria cuentaGen = service.buscarPorNumero(numBuscar);
+
+            if (cuentaGen != null && cuentaGen instanceof CuentaAhorros && cuentaGen.getEstado().equalsIgnoreCase("Activo")) {
+
+                CuentaAhorros cuenta = (CuentaAhorros) cuentaGen;
+
+                txtNumCuenta.setText(String.valueOf(cuenta.getNumeroCuenta()));
+                txtTitular.setText(cuenta.getTitular());
+                txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                txtMontoMinimoApertura.setText(String.valueOf(cuenta.getMontoMinApertura()));
+                txtTasaInteres.setText(String.valueOf(cuenta.getTasaInteres()));
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
+
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+                txtMontoMinimoApertura.setText("");
+                txtTasaInteres.setText("");
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: Ingrese solo números");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        String numCuentaStr = txtNumCuenta.getText();
+
+        if (numCuentaStr.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Primero debe buscar una cuenta para eliminar.");
+            return;
+        }
+
+        int numero = Integer.parseInt(numCuentaStr);
+
+        int respuesta = javax.swing.JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de que desea eliminar la cuenta de " + txtTitular.getText() + "?",
+                "Confirmar eliminación",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+
+        if (respuesta == javax.swing.JOptionPane.YES_OPTION) {
+            boolean eliminar = service.eliminar(numero);
+            if (eliminar) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Cuenta eliminada exitosamente.");
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+                txtMontoMinimoApertura.setText("");
+                txtTasaInteres.setText("");
+                txtInputNumCuenta.setText("");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error al intentar eliminar.");
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,8 +262,8 @@ public class GUIEliminarCuentaAhorros extends javax.swing.JFrame {
     private javax.swing.JTextField txtInputNumCuenta;
     private javax.swing.JTextField txtMontoMinimoApertura;
     private javax.swing.JTextField txtNumCuenta;
-    private javax.swing.JTextField txtRendimiento;
     private javax.swing.JTextField txtSaldo;
+    private javax.swing.JTextField txtTasaInteres;
     private javax.swing.JTextField txtTitular;
     // End of variables declaration//GEN-END:variables
 }

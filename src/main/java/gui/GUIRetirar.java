@@ -4,17 +4,22 @@
  */
 package gui;
 
+import model.CuentaBancaria;
+import service.CuentaBancariaService;
+import service.ICuentaService;
+
 /**
  *
  * @author jaiderclavijo
  */
 public class GUIRetirar extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIRetirar.class.getName());
 
     /**
      * Creates new form GUIRetirar
      */
+    private ICuentaService service = new CuentaBancariaService();
     public GUIRetirar() {
         initComponents();
         setLocationRelativeTo(this);
@@ -34,17 +39,20 @@ public class GUIRetirar extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtNumCuenta = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTitular = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtSaldo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtInputNumCuenta = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtInputRetiro = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Retirar");
 
         btnRetirar.setText("Retirar");
+        btnRetirar.addActionListener(this::btnRetirarActionPerformed);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Retirar"));
         jPanel1.setLayout(new java.awt.GridLayout(0, 2, 20, 50));
@@ -59,8 +67,8 @@ public class GUIRetirar extends javax.swing.JFrame {
         jLabel3.setText("Titular:");
         jPanel1.add(jLabel3);
 
-        jTextField2.setEditable(false);
-        jPanel1.add(jTextField2);
+        txtTitular.setEditable(false);
+        jPanel1.add(txtTitular);
 
         jLabel4.setText("Saldo:");
         jPanel1.add(jLabel4);
@@ -71,6 +79,11 @@ public class GUIRetirar extends javax.swing.JFrame {
         jLabel1.setText("Ingrese numero de cuenta");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
+
+        jLabel5.setText("Ingrese cantidad a retirar");
+
+        txtInputRetiro.addActionListener(this::txtInputRetiroActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,13 +94,19 @@ public class GUIRetirar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtInputNumCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                        .addComponent(btnRetirar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtInputRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
+                                .addComponent(btnRetirar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtInputNumCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBuscar)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -98,10 +117,14 @@ public class GUIRetirar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtInputNumCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar)
+                    .addComponent(txtInputNumCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtInputRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRetirar))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -110,6 +133,70 @@ public class GUIRetirar extends javax.swing.JFrame {
     private void txtNumCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumCuentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumCuentaActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            if (txtInputNumCuenta.getText().isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un número");
+                return;
+            }
+
+            int numBuscar = Integer.parseInt(txtInputNumCuenta.getText());
+
+            CuentaBancaria cuentaGen = service.buscarPorNumero(numBuscar);
+
+            if (cuentaGen != null && cuentaGen.getEstado().equalsIgnoreCase("Activo")) {
+
+
+                txtNumCuenta.setText(String.valueOf(cuentaGen.getNumeroCuenta()));
+                txtTitular.setText(cuentaGen.getTitular());
+                txtSaldo.setText(String.valueOf(cuentaGen.getSaldo()));
+                
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada");
+
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: Ingrese solo números");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
+        String numCuentaStr = txtNumCuenta.getText();
+        double monto = Double.parseDouble(txtInputRetiro.getText());
+
+        if (numCuentaStr.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Primero debe buscar una cuenta para Retiro.");
+            return;
+        }
+
+        int numero = Integer.parseInt(numCuentaStr);
+
+        int respuesta = javax.swing.JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de que desea Retiro en la cuenta de " + txtTitular.getText() + "?",
+                "Confirmar Retiro",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+
+        if (respuesta == javax.swing.JOptionPane.YES_OPTION) {
+            service.retirar(numero,monto);
+           
+                javax.swing.JOptionPane.showMessageDialog(this, "Retiro realizado exitosamente.");
+                txtNumCuenta.setText(String.valueOf(service.buscarPorNumero(numero).getNumeroCuenta()));
+                txtTitular.setText(service.buscarPorNumero(numero).getTitular());
+                txtSaldo.setText(String.valueOf(service.buscarPorNumero(numero).getSaldo()));
+                txtInputNumCuenta.setText("");
+                txtInputRetiro.setText("");
+            
+        }
+    }//GEN-LAST:event_btnRetirarActionPerformed
+
+    private void txtInputRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputRetiroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInputRetiroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,10 +230,12 @@ public class GUIRetirar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField txtInputNumCuenta;
+    private javax.swing.JTextField txtInputRetiro;
     private javax.swing.JTextField txtNumCuenta;
     private javax.swing.JTextField txtSaldo;
+    private javax.swing.JTextField txtTitular;
     // End of variables declaration//GEN-END:variables
 }

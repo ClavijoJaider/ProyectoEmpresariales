@@ -237,7 +237,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miListarCorrienteActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       JOptionPane.showMessageDialog(this, "Desarrollado por Carlos Gil, Jaider Clavijo, Santiago Lozano!");
+        JOptionPane.showMessageDialog(this, "Desarrollado por Carlos Gil, Jaider Clavijo, Santiago Lozano!");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void miRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRetirarActionPerformed

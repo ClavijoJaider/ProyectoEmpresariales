@@ -12,21 +12,18 @@ import lombok.Data;
  */
 @Data
 public abstract class CuentaBancaria {
-    
+
     private int numeroCuenta;
     private String titular;
     private double saldo;
     private String estado;
-    
-  
-  public CuentaBancaria(int numeroCuenta, String titular, double saldo, String estado) {
+
+    public CuentaBancaria(int numeroCuenta, String titular, double saldo, String estado) {
         this.numeroCuenta = numeroCuenta;
         this.titular = titular;
         this.saldo = saldo;
         this.estado = estado;
     }
-  
-  
 
     public void setNumeroCuenta(int numeroCuenta) {
         if (numeroCuenta >= 0) {
@@ -51,23 +48,27 @@ public abstract class CuentaBancaria {
         }
     }
 
-
     public void setEstado(String estado) {
         this.estado = estado;
     }
 
-  
     public abstract double calcularCostoMensual();
 
     public void depositar(double monto) {
-        if (monto <= 0) throw new IllegalArgumentException("El monto debe ser > 0");
+        if (monto <= 0) {
+            throw new IllegalArgumentException("El monto debe ser > 0");
+        }
         saldo += monto;
     }
 
     public void retirar(double monto) {
-        if (monto <= 0) throw new IllegalArgumentException("El monto debe ser > 0");
-        if (monto > saldo) throw new IllegalArgumentException("Saldo insuficiente");
+        if (monto <= 0) {
+            throw new IllegalArgumentException("El monto debe ser > 0");
+        }
+        if (monto > saldo) {
+            throw new IllegalArgumentException("Saldo insuficiente");
+        }
         saldo -= monto;
-    }  
-    
+    }
+
 }

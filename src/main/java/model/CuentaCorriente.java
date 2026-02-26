@@ -14,44 +14,43 @@ import lombok.Getter;
 @Data
 @Getter
 public class CuentaCorriente extends CuentaBancaria {
+
     private double limiteSobreGiro;
-    private double comision; 
-    private TarjetaCredito tarjetaCredito; 
+    private double comision;
+    private TarjetaCredito tarjetaCredito;
 
     public CuentaCorriente(int numeroCuenta, String titular, double saldo,
-                           double limiteSobreGiro, double comision) {
-        super(numeroCuenta, titular, saldo, "activo");
-        if(limiteSobreGiro >= 0)
-        {
+            double limiteSobreGiro, double comision) {
+        super(numeroCuenta, titular, saldo, "Activo");
+        if (limiteSobreGiro >= 0) {
             this.limiteSobreGiro = limiteSobreGiro;
-        } else
-        {
+        } else {
             throw new IllegalArgumentException("el limite de sobre giro no puede ser menor que 0");
         }
-        if(comision >= 0)
-        {
+        if (comision >= 0) {
             this.comision = comision;
-        } else
-        {
+        } else {
             throw new IllegalArgumentException("La comision no puede ser menor que 0");
         }
         tarjetaCredito = null;
     }
-    
-    
 
     // SOBRESCRITURA (polimorfismo)
     @Override
     public double calcularCostoMensual() {
         double costo = comision;
-        if (tarjetaCredito != null) costo += tarjetaCredito.getCuotaManejo();
+        if (tarjetaCredito != null) {
+            costo += tarjetaCredito.getCuotaManejo();
+        }
         return costo;
     }
 
     // Retiro con sobregiro permitido
     @Override
     public void retirar(double monto) {
-        if (monto <= 0) throw new IllegalArgumentException("El monto debe ser > 0");
+        if (monto <= 0) {
+            throw new IllegalArgumentException("El monto debe ser > 0");
+        }
 
         double saldoActual = getSaldo();
         double maxDisponible = saldoActual + limiteSobreGiro;

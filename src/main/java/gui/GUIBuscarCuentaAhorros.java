@@ -4,6 +4,8 @@
  */
 package gui;
 
+import model.CuentaBancaria;
+import model.CuentaAhorros;
 import service.CuentaBancariaService;
 import service.ICuentaService;
 
@@ -17,6 +19,7 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
      * Creates new form GUIBuscarCuentaAhorros
      */
     private ICuentaService service;
+
     public GUIBuscarCuentaAhorros() {
         initComponents();
         setLocationRelativeTo(this);
@@ -42,7 +45,7 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtMontoMinimoApertura = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtRendimiento = new javax.swing.JTextField();
+        txtTasaInteres = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtInputNumCuenta = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
@@ -85,8 +88,8 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
         jLabel6.setText("Rendimiento:");
         jPanel1.add(jLabel6);
 
-        txtRendimiento.setEditable(false);
-        jPanel1.add(txtRendimiento);
+        txtTasaInteres.setEditable(false);
+        jPanel1.add(txtTasaInteres);
 
         jLabel1.setText("Ingrese numero de cuenta");
 
@@ -136,7 +139,37 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumCuentaActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        try {
+            if (txtInputNumCuenta.getText().isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un número");
+                return;
+            }
+            
+            int numBuscar = Integer.parseInt(txtInputNumCuenta.getText());
+            
+            CuentaBancaria cuentaGen = service.buscarPorNumero(numBuscar);
+            
+            if (cuentaGen != null && cuentaGen instanceof CuentaAhorros && cuentaGen.getEstado().equalsIgnoreCase("Activo")) {
+                
+                CuentaAhorros cuenta = (CuentaAhorros) cuentaGen;
+                
+                txtNumCuenta.setText(String.valueOf(cuenta.getNumeroCuenta()));
+                txtTitular.setText(cuenta.getTitular());
+                txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                txtMontoMinimoApertura.setText(String.valueOf(cuenta.getMontoMinApertura()));
+                txtTasaInteres.setText(String.valueOf(cuenta.getTasaInteres()));
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
+                
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+                txtMontoMinimoApertura.setText("");
+                txtTasaInteres.setText("");
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: Ingrese solo números");
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
@@ -186,8 +219,8 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
     private javax.swing.JTextField txtInputNumCuenta;
     private javax.swing.JTextField txtMontoMinimoApertura;
     private javax.swing.JTextField txtNumCuenta;
-    private javax.swing.JTextField txtRendimiento;
     private javax.swing.JTextField txtSaldo;
+    private javax.swing.JTextField txtTasaInteres;
     private javax.swing.JTextField txtTitular;
     // End of variables declaration//GEN-END:variables
 }

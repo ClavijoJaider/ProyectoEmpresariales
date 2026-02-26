@@ -19,6 +19,7 @@ public class GUIBuscarCuentaCorriente extends javax.swing.JFrame {
      * Creates new form GUIBuscarCuentaCorriente
      */
     private ICuentaService service;
+
     public GUIBuscarCuentaCorriente() {
         initComponents();
         setLocationRelativeTo(this);
@@ -133,43 +134,41 @@ public class GUIBuscarCuentaCorriente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNumCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumCuentaActionPerformed
-        
+
     }//GEN-LAST:event_txtNumCuentaActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-    try {
-        if(txtInputNumCuenta.getText().isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un número");
-            return;
-        }
+        try {
+            if (txtInputNumCuenta.getText().isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un número");
+                return;
+            }
 
-        int numBuscar = Integer.parseInt(txtInputNumCuenta.getText());
-        
-        
-        CuentaBancaria cuentaGen = service.buscarPorNumero(numBuscar);
-        
-        if(cuentaGen != null && cuentaGen instanceof CuentaCorriente){
-            
-            CuentaCorriente cuenta = (CuentaCorriente) cuentaGen;
-            
-            txtNumCuenta.setText(String.valueOf(cuenta.getNumeroCuenta()));
-            txtTitular.setText(cuenta.getTitular());
-            txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
-            txtLimitSobreGiro.setText(String.valueOf(cuenta.getLimiteSobreGiro()));
-            txtComision.setText(String.valueOf(cuenta.getComision()));
+            int numBuscar = Integer.parseInt(txtInputNumCuenta.getText());
+
+            CuentaBancaria cuentaGen = service.buscarPorNumero(numBuscar);
+
+            if (cuentaGen != null && cuentaGen instanceof CuentaCorriente && cuentaGen.getEstado().equalsIgnoreCase("Activo")) {
+
+                CuentaCorriente cuenta = (CuentaCorriente) cuentaGen;
+
+                txtNumCuenta.setText(String.valueOf(cuenta.getNumeroCuenta()));
+                txtTitular.setText(cuenta.getTitular());
+                txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                txtLimitSobreGiro.setText(String.valueOf(cuenta.getLimiteSobreGiro()));
+                txtComision.setText(String.valueOf(cuenta.getComision()));
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
+
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+                txtLimitSobreGiro.setText("");
+                txtComision.setText("");
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: Ingrese solo números");
         }
-        else{
-            javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
-            
-            txtNumCuenta.setText("");
-            txtTitular.setText("");
-            txtSaldo.setText("");
-            txtLimitSobreGiro.setText("");
-            txtComision.setText("");
-        }
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error: Ingrese solo números");
-    }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**

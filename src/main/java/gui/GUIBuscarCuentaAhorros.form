@@ -124,7 +124,7 @@
             <Property name="text" type="java.lang.String" value="Rendimiento:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtRendimiento">
+        <Component class="javax.swing.JTextField" name="txtTasaInteres">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>

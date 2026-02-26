@@ -4,6 +4,11 @@
  */
 package gui;
 
+import model.CuentaCorriente;
+import model.CuentaBancaria;
+import service.CuentaBancariaService;
+import service.ICuentaService;
+
 /**
  *
  * @author sdlgv
@@ -13,9 +18,12 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame {
     /**
      * Creates new form GUIEliminarCuentaCorriente
      */
+    private ICuentaService service;
+
     public GUIEliminarCuentaCorriente() {
         initComponents();
         setLocationRelativeTo(this);
+        service = new CuentaBancariaService();
     }
 
     /**
@@ -31,7 +39,7 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtNumCuenta = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTitular = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtSaldo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -63,8 +71,8 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame {
         jLabel3.setText("Titular:");
         jPanel18.add(jLabel3);
 
-        jTextField2.setEditable(false);
-        jPanel18.add(jTextField2);
+        txtTitular.setEditable(false);
+        jPanel18.add(txtTitular);
 
         jLabel4.setText("Saldo:");
         jPanel18.add(jLabel4);
@@ -87,8 +95,18 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame {
         jLabel13.setText("Ingrese numero de cuenta");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,8 +144,75 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNumCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumCuentaActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtNumCuentaActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
+        String numCuentaStr = txtNumCuenta.getText();
+
+        if (numCuentaStr.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Primero debe buscar una cuenta para eliminar.");
+            return;
+        }
+
+        int numero = Integer.parseInt(numCuentaStr);
+
+        int respuesta = javax.swing.JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de que desea eliminar la cuenta de " + txtTitular.getText() + "?",
+                "Confirmar eliminación",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+
+        if (respuesta == javax.swing.JOptionPane.YES_OPTION) {
+            boolean eliminar = service.eliminar(numero);
+            if (eliminar) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Cuenta eliminada exitosamente.");
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+                txtLimitSobreGiro.setText("");
+                txtComision.setText("");
+                txtInputNumCuenta.setText("");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error al intentar eliminar.");
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            if (txtInputNumCuenta.getText().isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un número");
+                return;
+            }
+
+            int numBuscar = Integer.parseInt(txtInputNumCuenta.getText());
+
+            CuentaBancaria cuentaGen = service.buscarPorNumero(numBuscar);
+
+            if (cuentaGen != null && cuentaGen instanceof CuentaCorriente && cuentaGen.getEstado().equalsIgnoreCase("Activo")) {
+
+                CuentaCorriente cuenta = (CuentaCorriente) cuentaGen;
+
+                txtNumCuenta.setText(String.valueOf(cuenta.getNumeroCuenta()));
+                txtTitular.setText(cuenta.getTitular());
+                txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                txtLimitSobreGiro.setText(String.valueOf(cuenta.getLimiteSobreGiro()));
+                txtComision.setText(String.valueOf(cuenta.getComision()));
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
+
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+                txtLimitSobreGiro.setText("");
+                txtComision.setText("");
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: Ingrese solo números");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,11 +259,11 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel18;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField txtComision;
     private javax.swing.JTextField txtInputNumCuenta;
     private javax.swing.JTextField txtLimitSobreGiro;
     private javax.swing.JTextField txtNumCuenta;
     private javax.swing.JTextField txtSaldo;
+    private javax.swing.JTextField txtTitular;
     // End of variables declaration//GEN-END:variables
 }

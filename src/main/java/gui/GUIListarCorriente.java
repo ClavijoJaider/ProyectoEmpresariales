@@ -4,6 +4,11 @@
  */
 package gui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import service.CuentaBancariaService;
+import service.ICuentaService;
+
 /**
  *
  * @author sdlgv
@@ -13,6 +18,7 @@ public class GUIListarCorriente extends javax.swing.JFrame {
     /**
      * Creates new form GUIListarCorriente
      */
+    private ICuentaService service = new CuentaBancariaService();
     public GUIListarCorriente() {
         initComponents();
         setLocationRelativeTo(this);
@@ -114,7 +120,17 @@ public class GUIListarCorriente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        List<model.CuentaBancaria> todasLasCuentas = service.listar();
+
+        for (model.CuentaBancaria cuenta : todasLasCuentas) {
+            if (cuenta instanceof model.CuentaCorriente ahorro) {
+
+                Object[] fila = {ahorro.getNumeroCuenta(), ahorro.getTitular(), ahorro.getSaldo(), ahorro.getLimiteSobreGiro(), ahorro.getComision(), ahorro.getEstado()};
+                model.addRow(fila);
+            }
+        }
     }//GEN-LAST:event_btnListarActionPerformed
 
     /**

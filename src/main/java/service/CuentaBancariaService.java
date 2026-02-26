@@ -16,10 +16,7 @@ import model.CuentaCorriente;
 
 public class CuentaBancariaService implements ICuentaService {
 
-   
     private static final Map<Integer, CuentaBancaria> cuentas = new HashMap<>();
-    
-    
 
     @Override
     public void addCuenta(CuentaBancaria cuenta) {
@@ -52,23 +49,20 @@ public class CuentaBancariaService implements ICuentaService {
     }
 
     @Override
-    public void eliminar(int numeroCuenta) 
-    {
+    public boolean eliminar(int numeroCuenta) {
         CuentaBancaria cb = buscarPorNumero(numeroCuenta);
-        
+
         try {
-            if( cb != null && cb.getEstado().equalsIgnoreCase("Activo"))
-            {
+            if (cb != null && cb.getEstado().equalsIgnoreCase("Activo")) {
                 cb.setEstado("Inactivo");
+                return true;
             }
-                    
-        } catch (Exception e) 
-        {
-            
+
+        } catch (Exception e) {
+
         }
+        return false;
     }
-    
-    
 
     @Override
     public void depositar(int numeroCuenta, double monto) {
