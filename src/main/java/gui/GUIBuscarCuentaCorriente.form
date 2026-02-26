@@ -94,7 +94,7 @@
             <Property name="text" type="java.lang.String" value="Titular:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="txtTitular">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
@@ -142,6 +142,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

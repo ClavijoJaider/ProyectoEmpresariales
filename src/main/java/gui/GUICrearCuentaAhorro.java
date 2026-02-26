@@ -4,18 +4,21 @@
  */
 package gui;
 
+import javax.swing.JOptionPane;
+import service.CuentaBancariaService;
+import service.ICuentaService;
+
 /**
  *
  * @author sdlgv
  */
 public class GUICrearCuentaAhorro extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GUICrearCuentaAhorro
-     */
+    private ICuentaService service;
     public GUICrearCuentaAhorro() {
         initComponents();
         setLocationRelativeTo(this);
+        this.service = new CuentaBancariaService();
     }
 
     /**
@@ -36,7 +39,7 @@ public class GUICrearCuentaAhorro extends javax.swing.JFrame {
         txtTitular = new javax.swing.JTextField();
         txtSaldo = new javax.swing.JTextField();
         txtTasaInteres = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnCrear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Crear Cuenta Ahorro");
@@ -95,13 +98,13 @@ public class GUICrearCuentaAhorro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtTasaInteres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Crear");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCrear.setText("Crear");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCrearActionPerformed(evt);
             }
         });
 
@@ -115,7 +118,7 @@ public class GUICrearCuentaAhorro extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(btnCrear)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -123,17 +126,29 @@ public class GUICrearCuentaAhorro extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(btnCrear)
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        try {
+            int num = Integer.parseInt(txtNumCuenta.getText());
+            String titu = txtTitular.getText();
+            double sal = Double.parseDouble(txtSaldo.getText());
+            double tasa = Double.parseDouble(txtTasaInteres.getText());
+        
+            service.crearCuentaAhorros(num, titu, sal, tasa);
+            JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: Revisa que los campos numéricos sean correctos.");
+        }
+        
+        
+    }//GEN-LAST:event_btnCrearActionPerformed
 
     private void txtNumCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumCuentaActionPerformed
         // TODO add your handling code here:
@@ -175,7 +190,7 @@ public class GUICrearCuentaAhorro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCrear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

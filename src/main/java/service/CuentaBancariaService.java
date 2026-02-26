@@ -11,14 +11,18 @@ package service;
 import model.CuentaBancaria;
 
 import java.util.*;
+import model.CuentaAhorros;
+import model.CuentaCorriente;
 
 public class CuentaBancariaService implements ICuentaService {
 
    
-    private final Map<Integer, CuentaBancaria> cuentas = new HashMap<>();
+    private static final Map<Integer, CuentaBancaria> cuentas = new HashMap<>();
+    
+    
 
     @Override
-    public void crear(CuentaBancaria cuenta) {
+    public void addCuenta(CuentaBancaria cuenta) {
         if (cuenta == null) {
             throw new IllegalArgumentException("La cuenta no puede ser null");
         }
@@ -82,5 +86,17 @@ public class CuentaBancariaService implements ICuentaService {
     public double calcularCostoMensual(int numeroCuenta) {
         CuentaBancaria c = buscarPorNumero(numeroCuenta);
         return c.calcularCostoMensual();
+    }
+
+    @Override
+    public void crearCuentaAhorros(int numeroCuenta, String titular, double saldo, double tasa) {
+        CuentaBancaria ca = new CuentaAhorros(numeroCuenta, titular, saldo, tasa);
+        addCuenta(ca);
+    }
+
+    @Override
+    public void crearCuentaCorriente(int numeroCuenta, String titular, double saldo, double sobregiro, double comision) {
+        CuentaBancaria cc = new CuentaCorriente(numeroCuenta, titular, saldo, sobregiro, comision);
+        addCuenta(cc);
     }
 }

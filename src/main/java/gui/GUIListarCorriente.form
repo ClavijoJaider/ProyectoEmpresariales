@@ -88,7 +88,7 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="6" rowCount="4">
-                    <Column editable="false" title="Num Cuenta" type="java.lang.String"/>
+                    <Column editable="false" title="Num Cuenta" type="java.lang.Integer"/>
                     <Column editable="false" title="Titular" type="java.lang.String"/>
                     <Column editable="false" title="Saldo" type="java.lang.Double"/>
                     <Column editable="false" title="Limite Sobre Giro" type="java.lang.Double"/>

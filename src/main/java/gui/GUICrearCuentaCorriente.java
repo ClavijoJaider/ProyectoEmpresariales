@@ -4,18 +4,22 @@
  */
 package gui;
 
+import javax.swing.JOptionPane;
+import service.CuentaBancariaService;
+import service.ICuentaService;
+
 /**
  *
  * @author sdlgv
  */
 public class GUICrearCuentaCorriente extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GUICrearCuentaCorriente
-     */
+    private ICuentaService service;
+    
     public GUICrearCuentaCorriente() {
         initComponents();
         setLocationRelativeTo(this);
+        service = new CuentaBancariaService();
     }
 
     /**
@@ -36,6 +40,8 @@ public class GUICrearCuentaCorriente extends javax.swing.JFrame {
         txtTitular = new javax.swing.JTextField();
         txtSaldo = new javax.swing.JTextField();
         txtComision = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtLimtSobreGiro = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -51,6 +57,8 @@ public class GUICrearCuentaCorriente extends javax.swing.JFrame {
 
         jLabel4.setText("Comision");
 
+        jLabel5.setText("Limite sobre giro");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -58,17 +66,24 @@ public class GUICrearCuentaCorriente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNumCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                    .addComponent(txtTitular)
-                    .addComponent(txtSaldo)
-                    .addComponent(txtComision))
-                .addGap(15, 15, 15))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNumCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                            .addComponent(txtTitular)
+                            .addComponent(txtSaldo)
+                            .addComponent(txtComision))
+                        .addGap(15, 15, 15))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtLimtSobreGiro)
+                        .addGap(17, 17, 17))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,7 +104,11 @@ public class GUICrearCuentaCorriente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtComision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtLimtSobreGiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jButton1.setText("Crear");
@@ -117,16 +136,27 @@ public class GUICrearCuentaCorriente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addGap(40, 40, 40))
+                .addGap(17, 17, 17))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            int num = Integer.parseInt(txtNumCuenta.getText());
+            String titu = txtTitular.getText();
+            double sal = Double.parseDouble(txtSaldo.getText());
+            double comi = Double.parseDouble(txtComision.getText());
+            double sobre = Double.parseDouble(txtLimtSobreGiro.getText());
+        
+            service.crearCuentaCorriente(num, titu, sal, comi, sobre);
+            JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: Revisa que los campos numéricos sean correctos.");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -170,8 +200,10 @@ public class GUICrearCuentaCorriente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtComision;
+    private javax.swing.JTextField txtLimtSobreGiro;
     private javax.swing.JTextField txtNumCuenta;
     private javax.swing.JTextField txtSaldo;
     private javax.swing.JTextField txtTitular;

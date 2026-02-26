@@ -5,24 +5,40 @@
 package model;
 
 import lombok.Data;
+import lombok.Getter;
 
 /**
  *
  * @author jaiderclavijo
  */
 @Data
+@Getter
 public class CuentaCorriente extends CuentaBancaria {
     private double limiteSobreGiro;
     private double comision; 
     private TarjetaCredito tarjetaCredito; 
 
-    public CuentaCorriente(int numeroCuenta, String titular, double saldo, String estado,
-                           double limiteSobreGiro, double comision, TarjetaCredito tarjetaCredito) {
-        super(numeroCuenta, titular, saldo, estado);
-        this.limiteSobreGiro = limiteSobreGiro;
-        this.comision = comision;
-        this.tarjetaCredito = tarjetaCredito;
+    public CuentaCorriente(int numeroCuenta, String titular, double saldo,
+                           double limiteSobreGiro, double comision) {
+        super(numeroCuenta, titular, saldo, "activo");
+        if(limiteSobreGiro >= 0)
+        {
+            this.limiteSobreGiro = limiteSobreGiro;
+        } else
+        {
+            throw new IllegalArgumentException("el limite de sobre giro no puede ser menor que 0");
+        }
+        if(comision >= 0)
+        {
+            this.comision = comision;
+        } else
+        {
+            throw new IllegalArgumentException("La comision no puede ser menor que 0");
+        }
+        tarjetaCredito = null;
     }
+    
+    
 
     // SOBRESCRITURA (polimorfismo)
     @Override

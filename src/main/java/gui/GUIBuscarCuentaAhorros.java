@@ -4,6 +4,9 @@
  */
 package gui;
 
+import service.CuentaBancariaService;
+import service.ICuentaService;
+
 /**
  *
  * @author sdlgv
@@ -13,9 +16,11 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
     /**
      * Creates new form GUIBuscarCuentaAhorros
      */
+    private ICuentaService service;
     public GUIBuscarCuentaAhorros() {
         initComponents();
         setLocationRelativeTo(this);
+        service = new CuentaBancariaService();
     }
 
     /**
@@ -86,6 +91,11 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
         jLabel1.setText("Ingrese numero de cuenta");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,6 +134,10 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
     private void txtNumCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumCuentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumCuentaActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments

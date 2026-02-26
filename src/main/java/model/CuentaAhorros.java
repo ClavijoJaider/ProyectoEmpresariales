@@ -15,11 +15,11 @@ public class CuentaAhorros extends CuentaBancaria implements IRendimiento {
     private double tasaInteres;       
     private double montoMinApertura;   
 
-    public CuentaAhorros(int numeroCuenta, String titular, double saldo, String estado,
-                         double tasaInteres, double montoMinApertura) {
-        super(numeroCuenta, titular, saldo, estado);
+    public CuentaAhorros(int numeroCuenta, String titular, double saldo,
+                         double tasaInteres) {
+        super(numeroCuenta, titular, saldo, "activo");
         this.tasaInteres = tasaInteres;
-        this.montoMinApertura = montoMinApertura;
+        montoMinApertura = 200000.00;
 
         if (saldo < montoMinApertura) {
             throw new IllegalArgumentException("Saldo inicial menor al monto mínimo de apertura");

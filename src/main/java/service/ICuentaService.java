@@ -12,7 +12,9 @@ import model.CuentaBancaria;
 import java.util.List;
 
 public interface ICuentaService {
-    void crear(CuentaBancaria cuenta);
+    void addCuenta(CuentaBancaria cuenta);
+    void crearCuentaAhorros(int numeroCuenta, String titular, double saldo, double tasa);
+    void crearCuentaCorriente(int numeroCuenta, String titular, double saldo, double sobregiro, double comision);
     CuentaBancaria buscarPorNumero(int numeroCuenta);
     List<CuentaBancaria> listar();
     void eliminar(int numeroCuenta);
