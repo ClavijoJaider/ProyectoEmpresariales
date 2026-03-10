@@ -13,7 +13,7 @@ import service.ICuentaService;
  *
  * @author sdlgv
  */
-public class GUIListarCorriente extends javax.swing.JFrame {
+public class GUIListarCorriente extends javax.swing.JFrame implements ICambiable{
 
     /**
      * Creates new form GUIListarCorriente
@@ -174,4 +174,8 @@ public class GUIListarCorriente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void cambio() {
+        }
 }

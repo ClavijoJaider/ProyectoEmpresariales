@@ -13,7 +13,7 @@ import service.ICuentaService;
  *
  * @author jaiderclavijo
  */
-public class GUIDepositar extends javax.swing.JFrame {
+public class GUIDepositar extends javax.swing.JFrame implements ICambiable{
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIDepositar.class.getName());
 
@@ -233,4 +233,8 @@ public class GUIDepositar extends javax.swing.JFrame {
     private javax.swing.JTextField txtSaldo;
     private javax.swing.JTextField txtTitular;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void cambio() {
+        }
 }

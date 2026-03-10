@@ -12,7 +12,7 @@ import service.ICuentaService;
  *
  * @author jaiderclavijo
  */
-public class GUIRetirar extends javax.swing.JFrame {
+public class GUIRetirar extends javax.swing.JFrame implements ICambiable {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIRetirar.class.getName());
 
@@ -238,4 +238,9 @@ public class GUIRetirar extends javax.swing.JFrame {
     private javax.swing.JTextField txtSaldo;
     private javax.swing.JTextField txtTitular;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void cambio() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

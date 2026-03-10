@@ -13,7 +13,7 @@ import service.ICuentaService;
  *
  * @author sdlgv
  */
-public class GUIBuscarCuentaCorriente extends javax.swing.JFrame {
+public class GUIBuscarCuentaCorriente extends javax.swing.JFrame implements ICambiable{
 
     /**
      * Creates new form GUIBuscarCuentaCorriente
@@ -222,4 +222,8 @@ public class GUIBuscarCuentaCorriente extends javax.swing.JFrame {
     private javax.swing.JTextField txtSaldo;
     private javax.swing.JTextField txtTitular;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void cambio() {
+        }
 }

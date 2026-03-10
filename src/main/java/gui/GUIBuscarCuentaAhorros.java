@@ -13,7 +13,7 @@ import service.ICuentaService;
  *
  * @author sdlgv
  */
-public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
+public class GUIBuscarCuentaAhorros extends javax.swing.JFrame implements ICambiable {
 
     /**
      * Creates new form GUIBuscarCuentaAhorros
@@ -223,4 +223,8 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame {
     private javax.swing.JTextField txtTasaInteres;
     private javax.swing.JTextField txtTitular;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void cambio() {
+    }
 }
