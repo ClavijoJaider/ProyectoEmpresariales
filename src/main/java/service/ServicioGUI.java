@@ -24,7 +24,7 @@ public class ServicioGUI {
         guis.remove(gui);
     }
     
-    private static void cambioEnGUI(){
+    public static void cambioEnGUI(){
         for(ICambiable gui : guis){
             gui.cambio();
         }

@@ -7,6 +7,7 @@ package gui;
 import model.CuentaBancaria;
 import service.CuentaBancariaService;
 import service.ICuentaService;
+import service.ServicioGUI;
 
 /**
  *
@@ -23,6 +24,7 @@ public class GUIRetirar extends javax.swing.JFrame implements ICambiable {
     public GUIRetirar() {
         initComponents();
         setLocationRelativeTo(this);
+        ServicioGUI.registrarGUI(this);
     }
 
     /**
@@ -190,7 +192,9 @@ public class GUIRetirar extends javax.swing.JFrame implements ICambiable {
                 txtSaldo.setText(String.valueOf(service.buscarPorNumero(numero).getSaldo()));
                 txtInputNumCuenta.setText("");
                 txtInputRetiro.setText("");
-            
+                // Notificar a todas las GUIs registradas del cambio
+                ServicioGUI.cambioEnGUI();
+               
         }
     }//GEN-LAST:event_btnRetirarActionPerformed
 
@@ -241,6 +245,22 @@ public class GUIRetirar extends javax.swing.JFrame implements ICambiable {
 
     @Override
     public void cambio() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        {
+        // Si hay una cuenta cargada, refrescar su saldo actual
+        String numStr = txtNumCuenta.getText();
+        if (!numStr.isEmpty()) {
+            try {
+                CuentaBancaria cuenta = service.buscarPorNumero(Integer.parseInt(numStr));
+                if (cuenta != null && cuenta.getEstado().equalsIgnoreCase("Activo")) {
+                    txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                }
+            } catch (Exception ex) {
+                // La cuenta pudo haberse eliminado; limpiar campos
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+            }
+        }
+    }
     }
 }

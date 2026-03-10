@@ -8,6 +8,7 @@ import model.CuentaAhorros;
 import model.CuentaBancaria;
 import service.CuentaBancariaService;
 import service.ICuentaService;
+import service.ServicioGUI;
 
 /**
  *
@@ -24,6 +25,7 @@ public class GUIDepositar extends javax.swing.JFrame implements ICambiable{
     public GUIDepositar() {
         initComponents();
         setLocationRelativeTo(this);
+        ServicioGUI.registrarGUI(this);
     }
 
     /**
@@ -189,7 +191,9 @@ public class GUIDepositar extends javax.swing.JFrame implements ICambiable{
                 txtSaldo.setText(String.valueOf(service.buscarPorNumero(numero).getSaldo()));
                 txtInputNumCuenta.setText("");
                 txtInputDepositar.setText("");
-            
+                
+                // Notificar a todas las GUIs registradas del cambio
+                ServicioGUI.cambioEnGUI();
         }
     }//GEN-LAST:event_btnDepositarActionPerformed
 
@@ -236,5 +240,23 @@ public class GUIDepositar extends javax.swing.JFrame implements ICambiable{
 
     @Override
     public void cambio() {
+        {
+        // Si hay una cuenta cargada, refrescar su saldo actual
+        String numStr = txtNumCuenta.getText();
+        if (!numStr.isEmpty()) {
+            try {
+                CuentaBancaria cuenta = service.buscarPorNumero(Integer.parseInt(numStr));
+                if (cuenta != null && cuenta.getEstado().equalsIgnoreCase("Activo")) {
+                    txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                }
+            } catch (Exception ex) {
+                // La cuenta pudo haberse eliminado; limpiar campos
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+            }
         }
+        }
+    }
+        
 }
