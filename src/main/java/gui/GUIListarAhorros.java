@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import model.CuentaBancaria;
 import service.CuentaBancariaService;
 import service.ICuentaService;
+import service.ServicioGUI;
 
 /**
  *
@@ -25,6 +26,7 @@ public class GUIListarAhorros extends javax.swing.JFrame implements ICambiable{
     public GUIListarAhorros() {
         initComponents();
         setLocationRelativeTo(this);
+        ServicioGUI.registrarGUI(this);
     }
 
     /**
@@ -133,8 +135,10 @@ public class GUIListarAhorros extends javax.swing.JFrame implements ICambiable{
 
                 Object[] fila = {ahorro.getNumeroCuenta(), ahorro.getTitular(), ahorro.getSaldo(), ahorro.getTasaInteres(), ahorro.getMontoMinApertura(), ahorro.getEstado()};
                 model.addRow(fila);
+                
             }
         }
+        ServicioGUI.cambioEnGUI();
     }//GEN-LAST:event_btnListarActionPerformed
 
     /**
@@ -180,6 +184,19 @@ public class GUIListarAhorros extends javax.swing.JFrame implements ICambiable{
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void cambio() {
+    public void cambio() 
+    {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        List<model.CuentaBancaria> todasLasCuentas = service.listar();
+
+        for (model.CuentaBancaria cuenta : todasLasCuentas) {
+            if (cuenta instanceof model.CuentaAhorros ahorro) {
+
+                Object[] fila = {ahorro.getNumeroCuenta(), ahorro.getTitular(), ahorro.getSaldo(), ahorro.getTasaInteres(), ahorro.getMontoMinApertura(), ahorro.getEstado()};
+                model.addRow(fila);
+                
+            }
         }
+     }
 }

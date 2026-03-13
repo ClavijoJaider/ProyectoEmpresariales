@@ -8,6 +8,7 @@ import model.CuentaBancaria;
 import model.CuentaAhorros;
 import service.CuentaBancariaService;
 import service.ICuentaService;
+import service.ServicioGUI;
 
 /**
  *
@@ -24,6 +25,7 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame implements ICambi
         initComponents();
         setLocationRelativeTo(this);
         service = new CuentaBancariaService();
+        ServicioGUI.registrarGUI(this);
     }
 
     /**
@@ -158,6 +160,8 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame implements ICambi
                 txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
                 txtMontoMinimoApertura.setText(String.valueOf(cuenta.getMontoMinApertura()));
                 txtTasaInteres.setText(String.valueOf(cuenta.getTasaInteres()));
+                ServicioGUI.cambioEnGUI();
+                
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
                 
@@ -226,5 +230,22 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame implements ICambi
 
     @Override
     public void cambio() {
+        {
+        // Si hay una cuenta cargada, refrescar su saldo actual
+        String numStr = txtNumCuenta.getText();
+        if (!numStr.isEmpty()) {
+            try {
+                CuentaBancaria cuenta = service.buscarPorNumero(Integer.parseInt(numStr));
+                if (cuenta != null && cuenta.getEstado().equalsIgnoreCase("Activo")) {
+                    txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                }
+            } catch (Exception ex) {
+                // La cuenta pudo haberse eliminado; limpiar campos
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+            }
+        }
+        }
     }
 }

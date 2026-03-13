@@ -8,6 +8,7 @@ import model.CuentaCorriente;
 import model.CuentaBancaria;
 import service.CuentaBancariaService;
 import service.ICuentaService;
+import service.ServicioGUI;
 
 /**
  *
@@ -24,6 +25,7 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame implements IC
         initComponents();
         setLocationRelativeTo(this);
         service = new CuentaBancariaService();
+        ServicioGUI.registrarGUI(this);
     }
 
     /**
@@ -174,6 +176,7 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame implements IC
                 txtLimitSobreGiro.setText("");
                 txtComision.setText("");
                 txtInputNumCuenta.setText("");
+                ServicioGUI.cambioEnGUI();
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Error al intentar eliminar.");
             }
@@ -200,6 +203,7 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame implements IC
                 txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
                 txtLimitSobreGiro.setText(String.valueOf(cuenta.getLimiteSobreGiro()));
                 txtComision.setText(String.valueOf(cuenta.getComision()));
+                ServicioGUI.cambioEnGUI();
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
 
@@ -269,5 +273,23 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame implements IC
 
     @Override
     public void cambio() {
+        {
+        // Si hay una cuenta cargada, refrescar su saldo actual
+        String numStr = txtNumCuenta.getText();
+        if (!numStr.isEmpty()) {
+            try {
+                CuentaBancaria cuenta = service.buscarPorNumero(Integer.parseInt(numStr));
+                if (cuenta != null && cuenta.getEstado().equalsIgnoreCase("Activo")) {
+                    txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                }
+            } catch (Exception ex) {
+                // La cuenta pudo haberse eliminado; limpiar campos
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+            }
+        }
         }
 }
+}
+    

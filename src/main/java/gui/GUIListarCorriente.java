@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import service.CuentaBancariaService;
 import service.ICuentaService;
+import service.ServicioGUI;
 
 /**
  *
@@ -22,6 +23,7 @@ public class GUIListarCorriente extends javax.swing.JFrame implements ICambiable
     public GUIListarCorriente() {
         initComponents();
         setLocationRelativeTo(this);
+        ServicioGUI.registrarGUI(this);
     }
 
     /**
@@ -131,6 +133,7 @@ public class GUIListarCorriente extends javax.swing.JFrame implements ICambiable
                 model.addRow(fila);
             }
         }
+        ServicioGUI.cambioEnGUI();
     }//GEN-LAST:event_btnListarActionPerformed
 
     /**
@@ -177,5 +180,17 @@ public class GUIListarCorriente extends javax.swing.JFrame implements ICambiable
 
     @Override
     public void cambio() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        List<model.CuentaBancaria> todasLasCuentas = service.listar();
+
+        for (model.CuentaBancaria cuenta : todasLasCuentas) {
+            if (cuenta instanceof model.CuentaCorriente ahorro) {
+
+                Object[] fila = {ahorro.getNumeroCuenta(), ahorro.getTitular(), ahorro.getSaldo(), ahorro.getLimiteSobreGiro(), ahorro.getComision(), ahorro.getEstado()};
+                model.addRow(fila);
+            }
         }
+     }
+        
 }

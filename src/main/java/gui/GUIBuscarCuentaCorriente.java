@@ -8,6 +8,7 @@ import model.CuentaBancaria;
 import model.CuentaCorriente;
 import service.CuentaBancariaService;
 import service.ICuentaService;
+import service.ServicioGUI;
 
 /**
  *
@@ -24,6 +25,7 @@ public class GUIBuscarCuentaCorriente extends javax.swing.JFrame implements ICam
         initComponents();
         setLocationRelativeTo(this);
         service = new CuentaBancariaService();
+        ServicioGUI.registrarGUI(this);
     }
 
     /**
@@ -157,6 +159,7 @@ public class GUIBuscarCuentaCorriente extends javax.swing.JFrame implements ICam
                 txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
                 txtLimitSobreGiro.setText(String.valueOf(cuenta.getLimiteSobreGiro()));
                 txtComision.setText(String.valueOf(cuenta.getComision()));
+                ServicioGUI.cambioEnGUI();
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
 
@@ -225,5 +228,22 @@ public class GUIBuscarCuentaCorriente extends javax.swing.JFrame implements ICam
 
     @Override
     public void cambio() {
+        {
+        // Si hay una cuenta cargada, refrescar su saldo actual
+        String numStr = txtNumCuenta.getText();
+        if (!numStr.isEmpty()) {
+            try {
+                CuentaBancaria cuenta = service.buscarPorNumero(Integer.parseInt(numStr));
+                if (cuenta != null && cuenta.getEstado().equalsIgnoreCase("Activo")) {
+                    txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                }
+            } catch (Exception ex) {
+                // La cuenta pudo haberse eliminado; limpiar campos
+                txtNumCuenta.setText("");
+                txtTitular.setText("");
+                txtSaldo.setText("");
+            }
         }
+        }
+    }
 }
