@@ -14,11 +14,11 @@ import service.ICuentaService;
  */
 public class GUICrearCuentaAhorro extends javax.swing.JFrame {
 
-    private ICuentaService service;
+    ICuentaService service = CuentaBancariaService.getInstance();
+    
     public GUICrearCuentaAhorro() {
         initComponents();
         setLocationRelativeTo(this);
-        this.service = new CuentaBancariaService();
     }
 
     /**

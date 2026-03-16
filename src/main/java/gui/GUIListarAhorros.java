@@ -21,12 +21,12 @@ public class GUIListarAhorros extends javax.swing.JFrame implements ICambiable{
     /**
      * Creates new form GUIListarAhorros
      */
-    private ICuentaService service = new CuentaBancariaService();
+    ICuentaService service = CuentaBancariaService.getInstance();
 
     public GUIListarAhorros() {
         initComponents();
         setLocationRelativeTo(this);
-        ServicioGUI.registrarGUI(this);
+        ServicioGUI.getInstance().registrarGUI(this);
     }
 
     /**
@@ -138,7 +138,7 @@ public class GUIListarAhorros extends javax.swing.JFrame implements ICambiable{
                 
             }
         }
-        ServicioGUI.cambioEnGUI();
+        ServicioGUI.getInstance().cambioEnGUI();
     }//GEN-LAST:event_btnListarActionPerformed
 
     /**

@@ -19,13 +19,13 @@ public class GUIEliminarCuentaAhorros extends javax.swing.JFrame implements ICam
     /**
      * Creates new form GUIEliminarCuentaAhorros
      */
-    private ICuentaService service;
+    ICuentaService service = CuentaBancariaService.getInstance();
 
     public GUIEliminarCuentaAhorros() {
         initComponents();
         setLocationRelativeTo(this);
-        service = new CuentaBancariaService();
-        ServicioGUI.registrarGUI(this);
+        
+        ServicioGUI.getInstance().registrarGUI(this);
     }
 
     /**
@@ -212,7 +212,7 @@ public class GUIEliminarCuentaAhorros extends javax.swing.JFrame implements ICam
                 txtMontoMinimoApertura.setText("");
                 txtTasaInteres.setText("");
                 txtInputNumCuenta.setText("");
-                ServicioGUI.cambioEnGUI();
+                ServicioGUI.getInstance().cambioEnGUI();
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Error al intentar eliminar.");
             }

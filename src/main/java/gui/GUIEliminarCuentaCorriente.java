@@ -19,13 +19,12 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame implements IC
     /**
      * Creates new form GUIEliminarCuentaCorriente
      */
-    private ICuentaService service;
+    ICuentaService service = CuentaBancariaService.getInstance();
 
     public GUIEliminarCuentaCorriente() {
         initComponents();
         setLocationRelativeTo(this);
-        service = new CuentaBancariaService();
-        ServicioGUI.registrarGUI(this);
+        ServicioGUI.getInstance().registrarGUI(this);
     }
 
     /**
@@ -176,7 +175,7 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame implements IC
                 txtLimitSobreGiro.setText("");
                 txtComision.setText("");
                 txtInputNumCuenta.setText("");
-                ServicioGUI.cambioEnGUI();
+                ServicioGUI.getInstance().cambioEnGUI();
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Error al intentar eliminar.");
             }
@@ -203,7 +202,7 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame implements IC
                 txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
                 txtLimitSobreGiro.setText(String.valueOf(cuenta.getLimiteSobreGiro()));
                 txtComision.setText(String.valueOf(cuenta.getComision()));
-                ServicioGUI.cambioEnGUI();
+                ServicioGUI.getInstance().cambioEnGUI();
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
 

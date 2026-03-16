@@ -5,12 +5,14 @@
 package model;
 
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 /**
  *
  * @author jaiderclavijo
  */
 @Data
+@SuperBuilder
 public abstract class CuentaBancaria {
 
     private int numeroCuenta;

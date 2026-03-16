@@ -19,11 +19,11 @@ public class GUIRendimiento extends javax.swing.JFrame implements ICambiable {
     /**
      * Creates new form GUIRendimiento
      */
-    private ICuentaService service = new CuentaBancariaService();
+    ICuentaService service = CuentaBancariaService.getInstance();
     public GUIRendimiento() {
         initComponents();
         setLocationRelativeTo(this);
-        ServicioGUI.registrarGUI(this);
+        ServicioGUI.getInstance().registrarGUI(this);
     }
 
     /**
@@ -158,7 +158,7 @@ public class GUIRendimiento extends javax.swing.JFrame implements ICambiable {
             txtTitular.setText(service.buscarPorNumero(numero).getTitular());
             txtSaldo.setText(String.valueOf(service.buscarPorNumero(numero).getSaldo()));
             txtInputNumCuenta.setText("");
-            ServicioGUI.cambioEnGUI();
+            ServicioGUI.getInstance().cambioEnGUI();
             
 
         }

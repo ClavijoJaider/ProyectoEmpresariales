@@ -4,8 +4,10 @@
  */
 package model;
 
+
 import lombok.Data;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
 /**
  *
@@ -13,6 +15,7 @@ import lombok.Getter;
  */
 @Data
 @Getter
+@SuperBuilder
 public class CuentaCorriente extends CuentaBancaria {
 
     private double limiteSobreGiro;

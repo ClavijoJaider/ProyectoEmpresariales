@@ -19,13 +19,12 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame implements ICambi
     /**
      * Creates new form GUIBuscarCuentaAhorros
      */
-    private ICuentaService service;
+    ICuentaService servicioCuenta = CuentaBancariaService.getInstance();
 
     public GUIBuscarCuentaAhorros() {
         initComponents();
         setLocationRelativeTo(this);
-        service = new CuentaBancariaService();
-        ServicioGUI.registrarGUI(this);
+        ServicioGUI.getInstance().registrarGUI(this);
     }
 
     /**
@@ -149,7 +148,7 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame implements ICambi
             
             int numBuscar = Integer.parseInt(txtInputNumCuenta.getText());
             
-            CuentaBancaria cuentaGen = service.buscarPorNumero(numBuscar);
+            CuentaBancaria cuentaGen = servicioCuenta.buscarPorNumero(numBuscar);
             
             if (cuentaGen != null && cuentaGen instanceof CuentaAhorros && cuentaGen.getEstado().equalsIgnoreCase("Activo")) {
                 
@@ -160,7 +159,7 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame implements ICambi
                 txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
                 txtMontoMinimoApertura.setText(String.valueOf(cuenta.getMontoMinApertura()));
                 txtTasaInteres.setText(String.valueOf(cuenta.getTasaInteres()));
-                ServicioGUI.cambioEnGUI();
+                ServicioGUI.getInstance().cambioEnGUI();
                 
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
@@ -235,7 +234,7 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame implements ICambi
         String numStr = txtNumCuenta.getText();
         if (!numStr.isEmpty()) {
             try {
-                CuentaBancaria cuenta = service.buscarPorNumero(Integer.parseInt(numStr));
+                CuentaBancaria cuenta = servicioCuenta.buscarPorNumero(Integer.parseInt(numStr));
                 if (cuenta != null && cuenta.getEstado().equalsIgnoreCase("Activo")) {
                     txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
                 }

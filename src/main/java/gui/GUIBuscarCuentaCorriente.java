@@ -19,13 +19,12 @@ public class GUIBuscarCuentaCorriente extends javax.swing.JFrame implements ICam
     /**
      * Creates new form GUIBuscarCuentaCorriente
      */
-    private ICuentaService service;
+    ICuentaService service = CuentaBancariaService.getInstance();
 
     public GUIBuscarCuentaCorriente() {
         initComponents();
         setLocationRelativeTo(this);
-        service = new CuentaBancariaService();
-        ServicioGUI.registrarGUI(this);
+        ServicioGUI.getInstance().registrarGUI(this);
     }
 
     /**
@@ -159,7 +158,7 @@ public class GUIBuscarCuentaCorriente extends javax.swing.JFrame implements ICam
                 txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
                 txtLimitSobreGiro.setText(String.valueOf(cuenta.getLimiteSobreGiro()));
                 txtComision.setText(String.valueOf(cuenta.getComision()));
-                ServicioGUI.cambioEnGUI();
+                ServicioGUI.getInstance().cambioEnGUI();
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
 

@@ -15,16 +15,30 @@ import java.util.List;
 public class ServicioGUI {
     
     private static List <ICambiable> guis = new ArrayList<>();
+    private static ServicioGUI sgui;
     
-    public static void registrarGUI(ICambiable gui){
+    private ServicioGUI(){
+        
+    }
+    
+    public static ServicioGUI getInstance(){
+        if (sgui == null){
+            sgui = new ServicioGUI();
+            return sgui;
+        }
+        
+        return sgui;
+    }
+    
+    public  void registrarGUI(ICambiable gui){
         guis.add(gui);
     }
     
-    public static void eliminarGUI(ICambiable gui){
+    public  void eliminarGUI(ICambiable gui){
         guis.remove(gui);
     }
     
-    public static void cambioEnGUI(){
+    public  void cambioEnGUI(){
         for(ICambiable gui : guis){
             gui.cambio();
         }

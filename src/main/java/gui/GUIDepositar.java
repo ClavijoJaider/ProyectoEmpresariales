@@ -21,11 +21,11 @@ public class GUIDepositar extends javax.swing.JFrame implements ICambiable{
     /**
      * Creates new form GUIDepositar
      */
-    private ICuentaService service = new CuentaBancariaService();
+    ICuentaService service = CuentaBancariaService.getInstance();
     public GUIDepositar() {
         initComponents();
         setLocationRelativeTo(this);
-        ServicioGUI.registrarGUI(this);
+        ServicioGUI.getInstance().registrarGUI(this);
     }
 
     /**
@@ -193,7 +193,7 @@ public class GUIDepositar extends javax.swing.JFrame implements ICambiable{
                 txtInputDepositar.setText("");
                 
                 // Notificar a todas las GUIs registradas del cambio
-                ServicioGUI.cambioEnGUI();
+                ServicioGUI.getInstance().cambioEnGUI();
         }
     }//GEN-LAST:event_btnDepositarActionPerformed
 

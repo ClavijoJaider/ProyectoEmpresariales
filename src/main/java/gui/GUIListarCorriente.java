@@ -19,11 +19,11 @@ public class GUIListarCorriente extends javax.swing.JFrame implements ICambiable
     /**
      * Creates new form GUIListarCorriente
      */
-    private ICuentaService service = new CuentaBancariaService();
+    ICuentaService service = CuentaBancariaService.getInstance();
     public GUIListarCorriente() {
         initComponents();
         setLocationRelativeTo(this);
-        ServicioGUI.registrarGUI(this);
+        ServicioGUI.getInstance().registrarGUI(this);
     }
 
     /**
@@ -133,7 +133,7 @@ public class GUIListarCorriente extends javax.swing.JFrame implements ICambiable
                 model.addRow(fila);
             }
         }
-        ServicioGUI.cambioEnGUI();
+        ServicioGUI.getInstance().cambioEnGUI();
     }//GEN-LAST:event_btnListarActionPerformed
 
     /**

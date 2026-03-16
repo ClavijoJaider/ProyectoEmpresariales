@@ -4,13 +4,16 @@
  */
 package model;
 
+
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 /**
  *
  * @author jaiderclavijo
  */
 @Data
+@SuperBuilder
 public class CuentaAhorros extends CuentaBancaria implements IRendimiento {
 
     private double tasaInteres;

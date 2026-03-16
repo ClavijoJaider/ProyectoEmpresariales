@@ -17,6 +17,20 @@ import model.CuentaCorriente;
 public class CuentaBancariaService implements ICuentaService {
 
     private static final Map<Integer, CuentaBancaria> cuentas = new HashMap<>();
+    private static CuentaBancariaService cbsInstacia;
+    
+    private CuentaBancariaService (){
+        
+    }
+    
+    public static CuentaBancariaService getInstance(){
+        if (cbsInstacia == null){
+            cbsInstacia = new CuentaBancariaService();
+            return cbsInstacia;
+        }
+        
+        return cbsInstacia;
+    }
 
     @Override
     public void addCuenta(CuentaBancaria cuenta) {
@@ -84,13 +98,26 @@ public class CuentaBancariaService implements ICuentaService {
 
     @Override
     public void crearCuentaAhorros(int numeroCuenta, String titular, double saldo, double tasa) {
-        CuentaBancaria ca = new CuentaAhorros(numeroCuenta, titular, saldo, tasa);
+        CuentaBancaria ca = CuentaAhorros.builder()
+            .numeroCuenta(numeroCuenta)
+            .titular(titular)
+            .saldo(saldo)
+            .tasaInteres(tasa)
+            .estado("Activo")
+            .build();
         addCuenta(ca);
     }
 
     @Override
     public void crearCuentaCorriente(int numeroCuenta, String titular, double saldo, double sobregiro, double comision) {
-        CuentaBancaria cc = new CuentaCorriente(numeroCuenta, titular, saldo, sobregiro, comision);
+        CuentaBancaria cc = CuentaCorriente.builder()
+            .numeroCuenta(numeroCuenta) 
+            .titular(titular)           
+            .saldo(saldo)               
+            .limiteSobreGiro(sobregiro) 
+            .comision(comision) 
+            .estado("Activo")
+            .build();
         addCuenta(cc);
     }
 }

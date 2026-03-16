@@ -20,11 +20,11 @@ public class GUIRetirar extends javax.swing.JFrame implements ICambiable {
     /**
      * Creates new form GUIRetirar
      */
-    private ICuentaService service = new CuentaBancariaService();
+    ICuentaService service = CuentaBancariaService.getInstance();
     public GUIRetirar() {
         initComponents();
         setLocationRelativeTo(this);
-        ServicioGUI.registrarGUI(this);
+        ServicioGUI.getInstance().registrarGUI(this);
     }
 
     /**
@@ -193,7 +193,7 @@ public class GUIRetirar extends javax.swing.JFrame implements ICambiable {
                 txtInputNumCuenta.setText("");
                 txtInputRetiro.setText("");
                 // Notificar a todas las GUIs registradas del cambio
-                ServicioGUI.cambioEnGUI();
+                ServicioGUI.getInstance().cambioEnGUI();
                
         }
     }//GEN-LAST:event_btnRetirarActionPerformed
