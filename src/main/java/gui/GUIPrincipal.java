@@ -18,6 +18,22 @@ public class GUIPrincipal extends javax.swing.JFrame {
     public GUIPrincipal() {
         initComponents();
         setLocationRelativeTo(this);
+
+        javax.swing.JMenuItem miActualizarAhorro = new javax.swing.JMenuItem("Actualizar Cuenta");
+        miActualizarAhorro.addActionListener(e -> new GUIActualizarCuentaAhorros().setVisible(true));
+        jMenu4.add(miActualizarAhorro, 2);
+
+        javax.swing.JMenuItem miActualizarCorriente = new javax.swing.JMenuItem("Actualizar Cuenta");
+        miActualizarCorriente.addActionListener(e -> new GUIActualizarCuentaCorriente().setVisible(true));
+        jMenu5.add(miActualizarCorriente, 2);
+
+        javax.swing.JMenuItem miGestionarTarjeta = new javax.swing.JMenuItem("Gestionar Tarjeta Crédito");
+        miGestionarTarjeta.addActionListener(e -> new GUIGestionarTarjetaCredito().setVisible(true));
+        jMenu5.add(miGestionarTarjeta);
+
+        javax.swing.JMenuItem miCostoMensual = new javax.swing.JMenuItem("Costo Mensual");
+        miCostoMensual.addActionListener(e -> new GUICostoMensual().setVisible(true));
+        jMenu1.add(miCostoMensual);
     }
 
     /**

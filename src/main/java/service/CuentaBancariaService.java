@@ -13,6 +13,7 @@ import model.CuentaBancaria;
 import java.util.*;
 import model.CuentaAhorros;
 import model.CuentaCorriente;
+import model.TarjetaCredito;
 
 public class CuentaBancariaService implements ICuentaService {
 
@@ -94,6 +95,65 @@ public class CuentaBancariaService implements ICuentaService {
     public double calcularCostoMensual(int numeroCuenta) {
         CuentaBancaria c = buscarPorNumero(numeroCuenta);
         return c.calcularCostoMensual();
+    }
+
+    @Override
+    public void actualizarCuentaAhorros(int numeroCuenta, String titular, double tasaInteres) {
+        CuentaBancaria c = buscarPorNumero(numeroCuenta);
+        if (c instanceof CuentaAhorros ahorro) {
+            ahorro.setTitular(titular);
+            ahorro.setTasaInteres(tasaInteres);
+        } else {
+            throw new IllegalArgumentException("La cuenta no es de tipo Ahorros");
+        }
+    }
+
+    @Override
+    public void actualizarCuentaCorriente(int numeroCuenta, String titular, double limiteSobreGiro, double comision) {
+        CuentaBancaria c = buscarPorNumero(numeroCuenta);
+        if (c instanceof CuentaCorriente corriente) {
+            corriente.setTitular(titular);
+            corriente.setLimiteSobreGiro(limiteSobreGiro);
+            corriente.setComision(comision);
+        } else {
+            throw new IllegalArgumentException("La cuenta no es de tipo Corriente");
+        }
+    }
+
+    @Override
+    public void asociarTarjetaCredito(int numeroCuenta, String numeroTarjeta, double cupo, double cuotaManejo) {
+        CuentaBancaria c = buscarPorNumero(numeroCuenta);
+        if (c instanceof CuentaCorriente corriente) {
+            if (corriente.getTarjetaCredito() != null) {
+                throw new IllegalArgumentException("La cuenta ya tiene una tarjeta. Use Actualizar.");
+            }
+            corriente.setTarjetaCredito(new TarjetaCredito(cupo, cuotaManejo, numeroTarjeta));
+        } else {
+            throw new IllegalArgumentException("La cuenta no es de tipo Corriente");
+        }
+    }
+
+    @Override
+    public void actualizarTarjetaCredito(int numeroCuenta, String numeroTarjeta, double cupo, double cuotaManejo) {
+        CuentaBancaria c = buscarPorNumero(numeroCuenta);
+        if (c instanceof CuentaCorriente corriente) {
+            corriente.setTarjetaCredito(new TarjetaCredito(cupo, cuotaManejo, numeroTarjeta));
+        } else {
+            throw new IllegalArgumentException("La cuenta no es de tipo Corriente");
+        }
+    }
+
+    @Override
+    public void eliminarTarjetaCredito(int numeroCuenta) {
+        CuentaBancaria c = buscarPorNumero(numeroCuenta);
+        if (c instanceof CuentaCorriente corriente) {
+            if (corriente.getTarjetaCredito() == null) {
+                throw new IllegalArgumentException("La cuenta no tiene tarjeta asociada");
+            }
+            corriente.setTarjetaCredito(null);
+        } else {
+            throw new IllegalArgumentException("La cuenta no es de tipo Corriente");
+        }
     }
 
     @Override

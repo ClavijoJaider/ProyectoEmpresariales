@@ -30,4 +30,14 @@ public interface ICuentaService {
     void retirar(int numeroCuenta, double monto);
 
     double calcularCostoMensual(int numeroCuenta);
+
+    void actualizarCuentaAhorros(int numeroCuenta, String titular, double tasaInteres);
+
+    void actualizarCuentaCorriente(int numeroCuenta, String titular, double limiteSobreGiro, double comision);
+
+    void asociarTarjetaCredito(int numeroCuenta, String numeroTarjeta, double cupo, double cuotaManejo);
+
+    void actualizarTarjetaCredito(int numeroCuenta, String numeroTarjeta, double cupo, double cuotaManejo);
+
+    void eliminarTarjetaCredito(int numeroCuenta);
 }
