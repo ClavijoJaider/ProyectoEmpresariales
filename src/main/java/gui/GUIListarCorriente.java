@@ -122,18 +122,7 @@ public class GUIListarCorriente extends javax.swing.JFrame implements ICambiable
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        List<model.CuentaBancaria> todasLasCuentas = service.listar();
-
-        for (model.CuentaBancaria cuenta : todasLasCuentas) {
-            if (cuenta instanceof model.CuentaCorriente ahorro) {
-
-                Object[] fila = {ahorro.getNumeroCuenta(), ahorro.getTitular(), ahorro.getSaldo(), ahorro.getLimiteSobreGiro(), ahorro.getComision(), ahorro.getEstado()};
-                model.addRow(fila);
-            }
-        }
-        ServicioGUI.getInstance().cambioEnGUI();
+        cargarTabla();
     }//GEN-LAST:event_btnListarActionPerformed
 
     /**
@@ -178,19 +167,20 @@ public class GUIListarCorriente extends javax.swing.JFrame implements ICambiable
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void cambio() {
+    private void cargarTabla() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         List<model.CuentaBancaria> todasLasCuentas = service.listar();
-
         for (model.CuentaBancaria cuenta : todasLasCuentas) {
-            if (cuenta instanceof model.CuentaCorriente ahorro) {
-
-                Object[] fila = {ahorro.getNumeroCuenta(), ahorro.getTitular(), ahorro.getSaldo(), ahorro.getLimiteSobreGiro(), ahorro.getComision(), ahorro.getEstado()};
+            if (cuenta instanceof model.CuentaCorriente corriente) {
+                Object[] fila = {corriente.getNumeroCuenta(), corriente.getTitular(), corriente.getSaldo(), corriente.getLimiteSobreGiro(), corriente.getComision(), corriente.getEstado()};
                 model.addRow(fila);
             }
         }
-     }
-        
+    }
+
+    @Override
+    public void cambio() {
+        cargarTabla();
+    }
 }

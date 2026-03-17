@@ -202,7 +202,6 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame implements IC
                 txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
                 txtLimitSobreGiro.setText(String.valueOf(cuenta.getLimiteSobreGiro()));
                 txtComision.setText(String.valueOf(cuenta.getComision()));
-                ServicioGUI.getInstance().cambioEnGUI();
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
 
@@ -270,25 +269,38 @@ public class GUIEliminarCuentaCorriente extends javax.swing.JFrame implements IC
     private javax.swing.JTextField txtTitular;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void cambio() {
-        {
-        // Si hay una cuenta cargada, refrescar su saldo actual
+    private void refrescarCuenta() {
         String numStr = txtNumCuenta.getText();
         if (!numStr.isEmpty()) {
             try {
-                CuentaBancaria cuenta = service.buscarPorNumero(Integer.parseInt(numStr));
-                if (cuenta != null && cuenta.getEstado().equalsIgnoreCase("Activo")) {
+                CuentaBancaria cuentaGen = service.buscarPorNumero(Integer.parseInt(numStr));
+                if (cuentaGen instanceof CuentaCorriente && cuentaGen.getEstado().equalsIgnoreCase("Activo")) {
+                    CuentaCorriente cuenta = (CuentaCorriente) cuentaGen;
+                    txtNumCuenta.setText(String.valueOf(cuenta.getNumeroCuenta()));
+                    txtTitular.setText(cuenta.getTitular());
                     txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                    txtLimitSobreGiro.setText(String.valueOf(cuenta.getLimiteSobreGiro()));
+                    txtComision.setText(String.valueOf(cuenta.getComision()));
+                } else {
+                    limpiarCampos();
                 }
             } catch (Exception ex) {
-                // La cuenta pudo haberse eliminado; limpiar campos
-                txtNumCuenta.setText("");
-                txtTitular.setText("");
-                txtSaldo.setText("");
+                limpiarCampos();
             }
         }
-        }
+    }
+
+    private void limpiarCampos() {
+        txtNumCuenta.setText("");
+        txtTitular.setText("");
+        txtSaldo.setText("");
+        txtLimitSobreGiro.setText("");
+        txtComision.setText("");
+    }
+
+    @Override
+    public void cambio() {
+        refrescarCuenta();
+    }
 }
-}
-    
+

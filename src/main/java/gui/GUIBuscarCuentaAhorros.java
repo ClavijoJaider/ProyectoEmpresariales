@@ -159,8 +159,6 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame implements ICambi
                 txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
                 txtMontoMinimoApertura.setText(String.valueOf(cuenta.getMontoMinApertura()));
                 txtTasaInteres.setText(String.valueOf(cuenta.getTasaInteres()));
-                ServicioGUI.getInstance().cambioEnGUI();
-                
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Cuenta no encontrada o no es de tipo Corriente");
                 
@@ -227,24 +225,37 @@ public class GUIBuscarCuentaAhorros extends javax.swing.JFrame implements ICambi
     private javax.swing.JTextField txtTitular;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void cambio() {
-        {
-        // Si hay una cuenta cargada, refrescar su saldo actual
+    private void refrescarCuenta() {
         String numStr = txtNumCuenta.getText();
         if (!numStr.isEmpty()) {
             try {
-                CuentaBancaria cuenta = servicioCuenta.buscarPorNumero(Integer.parseInt(numStr));
-                if (cuenta != null && cuenta.getEstado().equalsIgnoreCase("Activo")) {
+                CuentaBancaria cuentaGen = servicioCuenta.buscarPorNumero(Integer.parseInt(numStr));
+                if (cuentaGen instanceof CuentaAhorros && cuentaGen.getEstado().equalsIgnoreCase("Activo")) {
+                    CuentaAhorros cuenta = (CuentaAhorros) cuentaGen;
+                    txtNumCuenta.setText(String.valueOf(cuenta.getNumeroCuenta()));
+                    txtTitular.setText(cuenta.getTitular());
                     txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                    txtMontoMinimoApertura.setText(String.valueOf(cuenta.getMontoMinApertura()));
+                    txtTasaInteres.setText(String.valueOf(cuenta.getTasaInteres()));
+                } else {
+                    limpiarCampos();
                 }
             } catch (Exception ex) {
-                // La cuenta pudo haberse eliminado; limpiar campos
-                txtNumCuenta.setText("");
-                txtTitular.setText("");
-                txtSaldo.setText("");
+                limpiarCampos();
             }
         }
-        }
+    }
+
+    private void limpiarCampos() {
+        txtNumCuenta.setText("");
+        txtTitular.setText("");
+        txtSaldo.setText("");
+        txtMontoMinimoApertura.setText("");
+        txtTasaInteres.setText("");
+    }
+
+    @Override
+    public void cambio() {
+        refrescarCuenta();
     }
 }

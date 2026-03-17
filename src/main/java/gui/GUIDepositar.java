@@ -183,17 +183,12 @@ public class GUIDepositar extends javax.swing.JFrame implements ICambiable{
                 javax.swing.JOptionPane.WARNING_MESSAGE);
 
         if (respuesta == javax.swing.JOptionPane.YES_OPTION) {
-            service.depositar(numero,monto);
-           
-                javax.swing.JOptionPane.showMessageDialog(this, "Deposito realizado exitosamente.");
-                txtNumCuenta.setText(String.valueOf(service.buscarPorNumero(numero).getNumeroCuenta()));
-                txtTitular.setText(service.buscarPorNumero(numero).getTitular());
-                txtSaldo.setText(String.valueOf(service.buscarPorNumero(numero).getSaldo()));
-                txtInputNumCuenta.setText("");
-                txtInputDepositar.setText("");
-                
-                // Notificar a todas las GUIs registradas del cambio
-                ServicioGUI.getInstance().cambioEnGUI();
+            service.depositar(numero, monto);
+            javax.swing.JOptionPane.showMessageDialog(this, "Deposito realizado exitosamente.");
+            txtInputNumCuenta.setText("");
+            txtInputDepositar.setText("");
+            refrescarCuenta();
+            ServicioGUI.getInstance().cambioEnGUI();
         }
     }//GEN-LAST:event_btnDepositarActionPerformed
 
@@ -238,25 +233,32 @@ public class GUIDepositar extends javax.swing.JFrame implements ICambiable{
     private javax.swing.JTextField txtTitular;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void cambio() {
-        {
-        // Si hay una cuenta cargada, refrescar su saldo actual
+    private void refrescarCuenta() {
         String numStr = txtNumCuenta.getText();
         if (!numStr.isEmpty()) {
             try {
                 CuentaBancaria cuenta = service.buscarPorNumero(Integer.parseInt(numStr));
                 if (cuenta != null && cuenta.getEstado().equalsIgnoreCase("Activo")) {
+                    txtNumCuenta.setText(String.valueOf(cuenta.getNumeroCuenta()));
+                    txtTitular.setText(cuenta.getTitular());
                     txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
+                } else {
+                    limpiarCampos();
                 }
             } catch (Exception ex) {
-                // La cuenta pudo haberse eliminado; limpiar campos
-                txtNumCuenta.setText("");
-                txtTitular.setText("");
-                txtSaldo.setText("");
+                limpiarCampos();
             }
         }
-        }
     }
-        
+
+    private void limpiarCampos() {
+        txtNumCuenta.setText("");
+        txtTitular.setText("");
+        txtSaldo.setText("");
+    }
+
+    @Override
+    public void cambio() {
+        refrescarCuenta();
+    }
 }
