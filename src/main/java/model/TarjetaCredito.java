@@ -22,5 +22,25 @@ public class TarjetaCredito {
         this.cuotaManejo = cuotaManejo;
         this.numeroTarjeta = numeroTarjeta;
     }
+     public void setCupo(double cupo) {
+        if (cupo < 0) {
+            throw new IllegalArgumentException("El cupo no puede ser negativo");
+        }
+        this.cupo = cupo;
+    }
+
+    public void setCuotaManejo(double cuotaManejo) {
+        if (cuotaManejo < 0) {
+            throw new IllegalArgumentException("La cuota de manejo no puede ser negativa");
+        }
+        this.cuotaManejo = cuotaManejo;
+    }
+
+    public void setNumeroTarjeta(String numeroTarjeta) {
+        if (numeroTarjeta == null || numeroTarjeta.trim().isEmpty()) {
+            throw new IllegalArgumentException("El número de tarjeta no puede estar vacío");
+        }
+        this.numeroTarjeta = numeroTarjeta.trim();
+    }
 
 }
