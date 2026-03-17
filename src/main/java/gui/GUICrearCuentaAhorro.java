@@ -7,6 +7,7 @@ package gui;
 import javax.swing.JOptionPane;
 import service.CuentaBancariaService;
 import service.ICuentaService;
+import service.ServicioGUI;
 
 /**
  *
@@ -142,6 +143,7 @@ public class GUICrearCuentaAhorro extends javax.swing.JFrame {
             double tasa = Double.parseDouble(txtTasaInteres.getText());
         
             service.crearCuentaAhorros(num, titu, sal, tasa);
+            ServicioGUI.getInstance().cambioEnGUI();
             JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: Revisa que los campos numéricos sean correctos.");
