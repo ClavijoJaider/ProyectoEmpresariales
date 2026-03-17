@@ -32,8 +32,8 @@ public class CuentaAhorros extends CuentaBancaria implements IRendimiento {
 
     @Override
     public double calcularCostoMensual() {
-
-        return 0.0;
+        // Cuota de administración mensual: 0.5% del saldo
+        return getSaldo() * 0.005;
     }
 
     @Override

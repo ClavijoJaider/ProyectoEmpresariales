@@ -169,12 +169,19 @@ public class GUICostoMensual extends javax.swing.JFrame implements ICambiable {
             return;
         }
         try {
+            // Referencia de tipo CuentaBancaria (clase abstracta)
             CuentaBancaria cuenta = service.buscarPorNumero(Integer.parseInt(txtNumCuenta.getText()));
-            // Polimorfismo: se llama calcularCostoMensual() sobre referencia CuentaBancaria
-            // CuentaAhorros retorna 0.0, CuentaCorriente retorna comision + cuotaManejo
+
+            // POLIMORFISMO: misma llamada, resultado diferente según la clase real en tiempo de ejecución
             double costo = cuenta.calcularCostoMensual();
+
             txtCostoMensual.setText(String.valueOf(costo));
-            javax.swing.JOptionPane.showMessageDialog(this, "Costo mensual: $" + costo);
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Polimorfismo aplicado\n" +
+                "Referencia: CuentaBancaria\n" +
+                "Clase real: " + cuenta.getClass().getSimpleName() + "\n" +
+                "Método: calcularCostoMensual()\n" +
+                "Resultado: $" + costo);
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al calcular: " + e.getMessage());
         }
